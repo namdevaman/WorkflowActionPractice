@@ -1,0 +1,18 @@
+# .github/workflows/manually-triger.yml
+
+name: Manual Trigger Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run Echo Script
+      run: |
+        echo "Hello, this workflow was manually triggered!"
