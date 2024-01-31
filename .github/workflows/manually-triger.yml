@@ -1,18 +1,32 @@
-# .github/workflows/manually-triger.yml
-
-name: Manual Trigger Workflow
-
 on:
   workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+      print_tags:
+        description: 'True to print to STDOUT'
+        required: true
+        type: boolean
+      tags:
+        description: 'Test scenario tags'
+        required: true
+        type: string
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
 
 jobs:
-  echo:
+  print-tag:
     runs-on: ubuntu-latest
-
+    if:  ${{ inputs.print_tags }} 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Run Echo Script
-      run: |
-        echo "Hello, this workflow was manually triggered!"
+      - name: Print the input tag to STDOUT
+        run: echo  The tags are ${{ inputs.tags }} 
